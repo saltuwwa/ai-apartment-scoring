@@ -1,0 +1,171 @@
+/* Сайт для риелторов — профессиональный вид */
+* { box-sizing: border-box; }
+:root {
+  --bg: #f8f9fa;
+  --card: #fff;
+  --border: #e0e4e8;
+  --accent: #1a5276;
+  --accent-light: #2874a6;
+  --success: #27ae60;
+  --error: #c0392b;
+  --text: #2c3e50;
+  --text-muted: #6c757d;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+.site-header {
+  background: var(--accent);
+  color: #fff;
+  padding: 20px 24px;
+  text-align: center;
+}
+.site-header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+.subtitle { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+.model-info {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+.tabs {
+  display: flex;
+  gap: 0;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.tab {
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-bottom: 3px solid transparent;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.content { padding: 24px; max-width: 1200px; margin: 0 auto; }
+.panel { display: none; }
+.panel.active { display: block; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+.col h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+}
+.upload-zone:hover { border-color: var(--accent-light); }
+.upload-zone p { margin: 0; color: var(--text-muted); }
+.upload-zone .preview {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 6px;
+  margin-top: 8px;
+  display: none;
+}
+.upload-zone.has-image .preview { display: block; }
+.upload-zone.has-image p { display: none; }
+.btn {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.btn:hover { background: var(--accent-light); }
+.btn:disabled { background: #95a5a6; cursor: not-allowed; }
+.result-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 200px;
+}
+.result-box .placeholder { color: var(--text-muted); margin: 0; }
+.result-box .success-banner {
+  background: #d5f5e3;
+  color: #145a32;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.eval-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.eval-table th, .eval-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.eval-table th { background: #f1f3f5; font-weight: 600; }
+.eval-table .score { font-weight: 600; color: var(--accent); }
+.eval-table .just { color: var(--text-muted); font-size: 13px; }
+.overall-badge { font-size: 1.2rem; font-weight: 600; color: var(--accent); margin-top: 12px; }
+.params { margin: 16px 0; }
+.params h3 { font-size: 0.95rem; margin: 0 0 8px; }
+.params label { display: block; margin-bottom: 10px; font-size: 14px; }
+.params select { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-top: 4px; }
+.params input[type="text"] { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; margin-top: 4px; }
+.checkbox { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.before-after img { max-width: 100%; border-radius: 6px; border: 1px solid var(--border); }
+.before-after .caption { font-size: 13px; margin-top: 4px; font-weight: 600; }
+.furniture-list { margin-top: 12px; }
+.furniture-list li { margin-bottom: 6px; }
+.cost-total { font-weight: 600; font-size: 1.1rem; margin-top: 12px; color: var(--success); }
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card);
+  padding: 24px 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 100;
+}
+.error {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fadbd8;
+  color: var(--error);
+  padding: 12px 20px;
+  border-radius: 6px;
+  z-index: 100;
+  max-width: 90%;
+}
+.deploy-content { max-width: 700px; }
+.deploy-content h2 { margin-top: 0; color: var(--accent); }
+.deploy-content pre { background: #2d3436; color: #dfe6e9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+.deploy-content code { font-size: 13px; }

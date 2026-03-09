@@ -1,0 +1,43 @@
+# Environment
+.env
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Assignment PDF (не для репо)
+image_task1.pdf
+
+# Project outputs (сгенерированные файлы)
+staged*.jpg
+staged*.png
+staged_*.jpg
+experiments/
+result_*.jpg
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+*.log
+logs/
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оценка недвижимости — для риелторов</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Оценка недвижимости по фото</h1>
+    <p class="subtitle">AI-оценка, виртуальный стейджинг, расчёт стоимости мебели</p>
+    <p class="model-info" id="modelInfo">Оценивает: Vision-Language модель Gemini</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="score">Задание 1: AI-оценка</button>
+    <button class="tab" data-tab="staging">Задание 2: Стейджинг</button>
+    <button class="tab" data-tab="deploy">Задание 3: БД и развёртывание</button>
+  </nav>
+
+  <main class="content">
+    <!-- Задание 1: Оценка -->
+    <section id="panel-score" class="panel active">
+      <div class="two-col">
+        <div class="col">
+          <h2>Исходное изображение</h2>
+          <div class="upload-zone" id="uploadZone1">
+            <input type="file" id="file1" accept="image/jpeg,image/png,image/jpg" hidden>
+            <p>Перетащите фото или нажмите для выбора</p>
+            <img id="preview1" class="preview" alt="Превью">
+          </div>
+          <button type="button" class="btn" id="btnScore">Оценить квартиру</button>
+        </div>
+        <div class="col">
+          <h2>AI-оценка квартиры</h2>
+          <div id="scoreResult" class="result-box">
+            <p class="placeholder">Загрузите фото и нажмите «Оценить»</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Задание 2: Стейджинг с гиперпараметрами -->
+    <section id="panel-staging" class="panel">
+      <div class="two-col">
+        <div class="col">
+          <h2>Исходное фото</h2>
+          <div class="upload-zone" id="uploadZone2">
+            <input type="file" id="file2" accept="image/jpeg,image/png,image/jpg" hidden>
+            <p>Перетащите фото или нажмите</p>
+            <img id="preview2" class="preview" alt="Превью">
+          </div>
+          <div class="params">
+            <h3>Гиперпараметры стейджинга</h3>
+            <label>Точность соответствия (input_fidelity)
+              <select id="inputFidelity">
+                <option value="low">low — сильнее изменения</option>
+                <option value="high">high — сохранить детали</option>
+              </select>
+            </label>
+            <label>Качество (quality)
+              <select id="quality">
+                <option value="auto">auto</option>
+                <option value="high" selected>high</option>
+                <option value="medium">medium</option>
+                <option value="low">low</option>
+              </select>
+            </label>
+            <label>Размер (size)
+              <select id="size">
+                <option value="auto" selected>auto</option>
+                <option value="1024x1024">1024×1024</option>
+                <option value="1536x1024">1536×1024</option>
+                <option value="1024x1536">1024×1536</option>
+              </select>
+            </label>
+          </div>
+          <label>Что изменить (англ.)
+            <input type="text" id="stagingPrompt" value="Replace the old sofa with a modern gray scandinavian sofa" placeholder="Replace sofa with modern gray sofa">
+          </label>
+          <label class="checkbox"><input type="checkbox" id="useDb"> Рассчитать стоимость мебели (БД)</label>
+          <button type="button" class="btn" id="btnStaging">Запустить стейджинг</button>
+        </div>
+        <div class="col">
+          <h2>Результат</h2>
+          <div id="stagingResult" class="result-box">
+            <p class="placeholder">Загрузите фото, настройте параметры и запустите</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Задание 3: БД и развёртывание -->
+    <section id="panel-deploy" class="panel">
+      <div class="deploy-content">
+        <h2>PostgreSQL — каталог мебели</h2>
+        <p>БД хранит каталог мебели с ценами. После стейджинга можно сопоставить добавленную мебель с реальными ценами.</p>
+        <button type="button" class="btn" id="btnDbStatus">Проверить подключение</button>
+        <div id="dbStatus" class="result-box"></div>
+
+        <h3>Локальный запуск БД</h3>
+        <pre><code># Установить PostgreSQL, создать БД
+createdb real_estate
+psql -d real_estate -f init_furniture_db.sql
+
+# В .env добавить:
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=real_estate
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=ваш_пароль</code></pre>
+
+        <h3>Облачное развёртывание</h3>
+        <p><strong>Локально:</strong> <code>python run_server.py</code> — сайт на http://localhost:8000</p>
+        <p><strong>Docker:</strong></p>
+        <pre><code>docker build -t realestate-app .
+docker run -p 8000:8000 --env-file .env realestate-app</code></pre>
+        <p><strong>Облако (Railway, Render, Fly.io):</strong> загрузите проект, добавьте переменные GEMINI_API_KEY, OPENAI_API_KEY. Для БД используйте облачный PostgreSQL (Neon, Supabase, Railway).</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="loading" class="loading" style="display:none">Обработка…</div>
+  <div id="error" class="error" style="display:none"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
