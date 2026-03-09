@@ -171,7 +171,7 @@ cp .env.example .env            # затем заполни ключи в .env
 |------------|----------|
 | `GEMINI_API_KEY` | [Google AI Studio](https://aistudio.google.com/) — для оценки и fallback стейджинга |
 | `OPENAI_API_KEY` | [OpenAI](https://platform.openai.com/) — для GPT Image 1.5 (стейджинг) |
-| `POSTGRES_*` | Для задания 3: host, port, db, user, password |
+| `POSTGRES_*` | host, port, db, user, password |
 
 ### 3. PostgreSQL (задание 3)
 
